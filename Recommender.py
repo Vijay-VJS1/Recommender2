@@ -7,9 +7,8 @@ st.title("Movie Recommendations")
 def load_model(size):
 #     st.markdown("HA")
     data_url=st.secrets["DATA_URL"]
-    output = f"{size}.feather"
-    gdown.download(data_url, output, quiet=False,fuzzy=True)
-    data=pd.read_feather(output)
+    url='https://drive.google.com/uc?id=' + data_url.split('/')[-2]
+    data = pd.read_feather(url)
     return data
 
 def Recommender():
@@ -33,7 +32,9 @@ def Recommender():
     movies_list=df['title'].values
     movies_list=np.append(movies_list,"")
     movies_list=sorted(movies_list)
-    similarity1=pd.read_feather(f'similarity1_{size}.feather')
+    sim1_small_url=st.secrets["SIM1_SMALL"]
+    sim1_small_url='https://drive.google.com/uc?id=' + sim1_small_url.split('/')[-2]
+    similarity1 = pd.read_feather(sim1_small_url)
     similarity2=pd.read_feather(f'similarity2_{size}.feather')
     ######################
     rows=5
