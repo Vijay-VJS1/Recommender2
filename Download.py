@@ -7,7 +7,10 @@ from filter import *
 @st.cache
 def load_model(down_url):
     url='https://drive.google.com/uc?id=' + down_url.split('/')[-2]
-    data = pd.read_feather(url)
+    try:
+        data = pd.read_feather(url)
+    except:
+        data = pd.read_parquet(url)
     return data
 def Download(expander):
     sizes = ['small', 'medium', 'large']
