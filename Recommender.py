@@ -7,45 +7,22 @@ key = st.secrets["TMDB_KEY"]
 # data_url="https://drive.google.com/file/d/1--MNXxNowj92d6rFHevp0xdfxyFSpcHm/view?usp=sharing"
 # sim_url="https://drive.google.com/file/d/1vjBSK22rJKsDEUEJT4MYWABPAnZOa9ej/view?usp=sharing"
 # key='00d9d014c90f00239dc8341d1a1bf045'
-@st.cache
-def load_model(size):
-    url='https://drive.google.com/uc?id=' + data_url.split('/')[-2]
-    data = pd.read_feather(url)
-    return data
-######################
-p=1
+
+################################
 from datetime import datetime
 now = datetime.now()
 current_time = now.strftime("%H:%M:%S")
-##################
-size = 'medium'
-df=load_model(size)
-# st.markdown(f'main{current_time}-{os.listdir(os.getcwd())}')
-######################
-def Recommender():
+###########################
+def Recommender(selected_movie,df,sim):
     now = datetime.now()
     current_time = now.strftime("%H:%M:%S")
     # st.markdown(f'inside{current_time}-{os.listdir(os.getcwd())}')
-    col1, col2 = st.columns([5, 1])
-    d3 = {}
-    sizes = ['small', 'medium', 'large']
-    with col2:
-        original_title = '<p style="font-family:Courier; color:White; font-size: 10px;">1</p>'
-        st.markdown(original_title, unsafe_allow_html=True)
-        with st.expander('Size'):
-            for x in range(3):
-                d3[sizes[x]] = st.button(sizes[x])
-    for x in range(3):
-        if d3[sizes[x]]:
-            size = sizes[x]
 
-    movies_list=df['title'].values
-    movies_list=np.append(movies_list,"")
-    movies_list=sorted(movies_list)
-    sim1_small_url=st.secrets["SIM1_SMALL"]
-    sim1_small_url='https://drive.google.com/uc?id=' + sim1_small_url.split('/')[-2]
-    similarity1 = pd.read_feather(sim1_small_url)
-    # similarity2=pd.read_feather(f'similarity2_{size}.feather')
+    # sim1_small_url=st.secrets["SIM1_SMALL"]
+    # sim1_small_url='https://drive.google.com/uc?id=' + sim1_small_url.split('/')[-2]
+    # similarity1 = pd.read_feather(sim1_small_url)
+    # # similarity2=pd.read_feather(f'similarity2_{size}.feather')
+    similarity1 = sim
     ######################
     rows=5
     columns=5
@@ -113,10 +90,6 @@ def Recommender():
 
     #####
     #####App
-    with col1:
-      selected_movie = st.selectbox("",
-                                    movies_list
-                                    )
     search_similar=st.button('Search Similar')
     photo_dict={}
     rating_dict={}

@@ -2,17 +2,37 @@ import pandas as pd
 import streamlit as st
 import os
 from filter import *
-full_data_url=st.secrets["FULL_DATA_URL"]
-size='small'
+# full_data_url=st.secrets["S_DOWN_URL"]
+# size='small'
 @st.cache
-def load_model(size):
-    url='https://drive.google.com/uc?id=' + full_data_url.split('/')[-2]
+def load_model(down_url):
+    url='https://drive.google.com/uc?id=' + down_url.split('/')[-2]
     data = pd.read_feather(url)
     return data
-def Download():
-    # st.title('Download Data With Filter')
+def Download(expander):
+    sizes = ['small', 'medium', 'large']
+    down_link_names=['tmdb_50K','tmdb_1L','tmdb_3_3L']
+    d3={}
+    col1, col2 = st.columns([5, 1])
+    with col2:
+        original_title = '<p style="font-family:Courier; color:transparent; font-size: 10px;">2</p>'
+        st.markdown(original_title, unsafe_allow_html=True)
+        with expander.expander('Size'):
+            for x in range(3):
+                d3[sizes[x]] = st.button(sizes[x],key=sizes[x])
+                d3[down_link_names[x]]=st.secrets[down_link_names[x]]
+    size=sizes[0]
 
-    df=load_model(size)
+    down_url=d3[down_link_names[0]]
+    x='old'
+    for x in range(3):
+        if d3[sizes[x]]:
+            size = sizes[x]
+            down_url=d3[down_link_names[x]]
+    df=load_model(down_url)
+    x='updated'
+
+    # st.title('Download Data With Filter')
     import streamlit.components.v1 as components
     from pandas.api.types import (
         is_categorical_dtype,
@@ -20,7 +40,7 @@ def Download():
         is_numeric_dtype,
         is_object_dtype,
     )
-
+    # st.markdown(f'Dataset has {df.shape[0]} Rows')
     df=df.dropna(subset='vote_count').reset_index(drop=True)
     df['vote_count']=df['vote_count'].apply(lambda x:round(x))
     df=df[['title','original_language','vote_average', 'vote_count',
