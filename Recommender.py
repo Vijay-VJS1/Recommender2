@@ -7,7 +7,6 @@ key = st.secrets["TMDB_KEY"]
 # data_url="https://drive.google.com/file/d/1--MNXxNowj92d6rFHevp0xdfxyFSpcHm/view?usp=sharing"
 # sim_url="https://drive.google.com/file/d/1vjBSK22rJKsDEUEJT4MYWABPAnZOa9ej/view?usp=sharing"
 # key='00d9d014c90f00239dc8341d1a1bf045'
-st.title("Movie Recommendations")
 @st.cache
 def load_model(size):
     url='https://drive.google.com/uc?id=' + data_url.split('/')[-2]
@@ -21,13 +20,12 @@ current_time = now.strftime("%H:%M:%S")
 ##################
 size = 'medium'
 df=load_model(size)
-st.markdown(f'main{current_time}-{os.listdir(os.getcwd())}')
-p+=1
+# st.markdown(f'main{current_time}-{os.listdir(os.getcwd())}')
 ######################
 def Recommender():
     now = datetime.now()
     current_time = now.strftime("%H:%M:%S")
-    st.markdown(f'inside{current_time}-{os.listdir(os.getcwd())}')
+    # st.markdown(f'inside{current_time}-{os.listdir(os.getcwd())}')
     col1, col2 = st.columns([5, 1])
     d3 = {}
     sizes = ['small', 'medium', 'large']

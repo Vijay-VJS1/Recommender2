@@ -2,16 +2,17 @@ import pandas as pd
 import streamlit as st
 import os
 from filter import *
+full_data_url=st.secrets["FULL_DATA_URL"]
+size='small'
 @st.cache
-def load_model():
-#     st.markdown("HA")
-    !gdown --fuzzy "https://drive.google.com/file/d/1bL9AjZusjHbxePR9oORKGKd2Kqis-TMu/view?usp=sharing"
-    data=pd.read_feather(f"{os.getcwd()}/movie_deploy_medium.feather")
+def load_model(size):
+    url='https://drive.google.com/uc?id=' + full_data_url.split('/')[-2]
+    data = pd.read_feather(url)
     return data
 def Download():
-    st.title('Download Data With Filter')
+    # st.title('Download Data With Filter')
 
-    df=load_model()
+    df=load_model(size)
     import streamlit.components.v1 as components
     from pandas.api.types import (
         is_categorical_dtype,
