@@ -2,40 +2,52 @@ import streamlit as st
 import numpy as np
 import requests,string,os
 import pandas as pd
+data_url=st.secrets["DATA_URL"]
+key = st.secrets["TMDB_KEY"]
+# data_url="https://drive.google.com/file/d/1--MNXxNowj92d6rFHevp0xdfxyFSpcHm/view?usp=sharing"
+# sim_url="https://drive.google.com/file/d/1vjBSK22rJKsDEUEJT4MYWABPAnZOa9ej/view?usp=sharing"
+# key='00d9d014c90f00239dc8341d1a1bf045'
 st.title("Movie Recommendations")
 @st.cache
 def load_model(size):
-#     st.markdown("HA")
-    data_url=st.secrets["DATA_URL"]
     url='https://drive.google.com/uc?id=' + data_url.split('/')[-2]
     data = pd.read_feather(url)
     return data
-
+######################
+p=1
+from datetime import datetime
+now = datetime.now()
+current_time = now.strftime("%H:%M:%S")
+##################
+size = 'medium'
+df=load_model(size)
+st.markdown(f'main{current_time}-{os.listdir(os.getcwd())}')
+p+=1
+######################
 def Recommender():
-    key = st.secrets["TMDB_KEY"]
-    size='medium'
-    col1,col2=st.columns([5,1])
-    d3={}
-    sizes=['small','medium','large']
+    now = datetime.now()
+    current_time = now.strftime("%H:%M:%S")
+    st.markdown(f'inside{current_time}-{os.listdir(os.getcwd())}')
+    col1, col2 = st.columns([5, 1])
+    d3 = {}
+    sizes = ['small', 'medium', 'large']
     with col2:
         original_title = '<p style="font-family:Courier; color:White; font-size: 10px;">1</p>'
         st.markdown(original_title, unsafe_allow_html=True)
         with st.expander('Size'):
             for x in range(3):
-                d3[sizes[x]]=st.button(sizes[x])
+                d3[sizes[x]] = st.button(sizes[x])
     for x in range(3):
         if d3[sizes[x]]:
-            size=sizes[x]
-    ##################
+            size = sizes[x]
 
-    df=load_model(size)
     movies_list=df['title'].values
     movies_list=np.append(movies_list,"")
     movies_list=sorted(movies_list)
     sim1_small_url=st.secrets["SIM1_SMALL"]
     sim1_small_url='https://drive.google.com/uc?id=' + sim1_small_url.split('/')[-2]
     similarity1 = pd.read_feather(sim1_small_url)
-    similarity2=pd.read_feather(f'similarity2_{size}.feather')
+    # similarity2=pd.read_feather(f'similarity2_{size}.feather')
     ######################
     rows=5
     columns=5
