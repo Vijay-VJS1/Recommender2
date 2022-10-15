@@ -11,6 +11,8 @@ page = st.sidebar.selectbox('Select page',['Recommender','Download Data'])
 # st.markdown(os.listdir(os.getcwd()))
 
 if page=='Recommender':
-    Recommender()
+#     Recommender()
+  st.markdown("Recommend")
 elif page=='Download Data':
-    Download()
+#     Download()
+  st.markdown("Download")
