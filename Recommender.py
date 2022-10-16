@@ -90,6 +90,31 @@ def Recommender(selected_movie,df,sim):
 
     #####
     #####App
+    m ="""<style>div.stButton > button:first-child {
+        background-color: #ce1126;
+        color: blue;
+        height: 2em;
+        width: 8em;
+        border-radius:10px;
+        border:3px solid #000000;
+        font-size:22px;
+        font-weight: bold;
+        margin: left;
+        display: block;
+    }
+
+    div.stButton > button:hover {
+    	background:linear-gradient(to bottom, red 0%, #ff5a5a 100%);
+    	background-color:#ce1126;
+    }
+
+    div.stButton > button:active {
+    	position:relative;
+    	top:3px;
+    }
+
+    </style>"""
+    # st.markdown(m,unsafe_allow_html=True)
     search_similar=st.button('Search Similar')
     photo_dict={}
     rating_dict={}

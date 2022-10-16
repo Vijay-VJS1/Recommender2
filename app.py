@@ -2,7 +2,7 @@ import streamlit as st
 import os
 #################
 st.set_page_config(page_title='👻👻🚗🌫️‍', page_icon='👻',
-                   layout="wide", initial_sidebar_state="collapsed",
+                   layout="centered", initial_sidebar_state="collapsed",
                    menu_items=None)
 from Recommender import *
 from Download import *
@@ -15,7 +15,52 @@ def load_model(recom_url):
     url='https://drive.google.com/uc?id=' + recom_url.split('/')[-2]
     data = pd.read_feather(url)
     return data
-#################
+######################################
+style2=''' div[viewBox="0 0 24 24"]> {
+    border-color: yellow;
+    background-color:green;
+    color: yellow;
+    height:2px;
+    box-shadow: rgba(255, 75, 75, 0.5) 0px 0px 0px 0.2rem;
+    outline: currentcolor none medium; } '''
+# st.markdown(f"<style>{style2}</style>", unsafe_allow_html=True)
+######################################
+s1 ="""<style>.st-bf {
+    border-color:transparent;
+    }
+    </style>"""
+st.markdown(s1, unsafe_allow_html=True)
+#0099ff
+#00ff00
+# ff0000
+#################################
+s2 ="""<style>div[data-testid="stVerticalBlock"] > div:nth-child(n+7) button{
+    background-color: #ce1126;
+    color: white;
+    height: 2em;
+    width: 8em;
+    border-radius:10px;
+    border:3px solid #000000;
+    font-size:22px;
+    font-weight: bold;
+    margin: left;
+    display: block;
+}
+
+div.stButton > button:hover {
+	background:linear-gradient(to bottom, red 0%, #ff5a5a 100%);
+	background-color:#ce1126;
+}
+
+div.stButton > button:active {
+	position:relative;
+	top:3px;
+}
+
+</style>"""
+st.markdown(s2, unsafe_allow_html=True)
+
+#################################
 col1, col2 = st.columns([5, 1])
 d3 = {}
 links1={}
@@ -39,6 +84,36 @@ recom_url=links1[recom_link_names[0]]
 sim_url=links2[sim_link_names[0]]
 df=load_model(recom_url)
 sim=load_model(sim_url)
+size_style_unclicked = '''div[data-testid*="stVerticalBlock"] > div:nth-child(%(x)s):nth-last-child(%(y)s) button {
+    border - color: red;
+    color: white;
+    opacity: 1;
+    height: 2.2em;
+    width: 4.5em;
+    border-radius:10px;
+    border:3px solid #000000;
+    font-size:18px;
+    font-weight: normal;
+    margin: left;
+    display: block;
+    box-shadow: rgba(255, 75, 75, 0.5) 0px 0px 0px 0.2rem;
+    outline: currentcolor none medium; }'''
+size_style_clicked = '''div[data-testid*="stVerticalBlock"] > div:nth-child(%(x)s):nth-last-child(%(y)s) button {
+    border - color: yellow;
+    color: white;
+    opacity: 1;
+    height: 2.2em;
+    width: 4.5em;
+    border-radius:10px;
+    border:3px solid #000000;
+    font-size:18px;
+    font-weight: normal;
+    margin: auto;
+    display: block;
+    background-color: crimson;
+    box-shadow: rgba(255, 75, 75, 0.5) 0px 0px 0px 0.2rem;
+    outline: currentcolor none medium; }'''
+style=""
 for x in range(3):
     if d3[sizes[x]]:
         size = sizes[x]
@@ -46,6 +121,12 @@ for x in range(3):
         sim_url = links2[sim_link_names[x]]
         df=load_model(recom_url)
         sim=load_model(sim_url)
+        style_para={'x':x+1,'y':3-x}
+        style += size_style_clicked % style_para
+    else:
+        style_para = {'x': x + 1, 'y': 3 - x}
+        style += size_style_unclicked % style_para
+st.markdown(f"<style>{style}</style>", unsafe_allow_html=True)
 # st.markdown(f'Sim is {sim.shape}, df is {df.shape}')
 # st.markdown(f'main{current_time}-{os.listdir(os.getcwd())}')
 movies_list=df['title'].values
@@ -69,5 +150,8 @@ if page=='Recommender':
     Recommender(selected_movie,df,sim)
 elif page=='Download Data':
     header.title('Download Data With Filter')
-    Download(expander)
+    data_to_downloader=[expander,
+                        size_style_clicked,
+                        size_style_unclicked]
+    Download(data_to_downloader)
     # st.markdown("Download")
