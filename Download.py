@@ -20,7 +20,7 @@ def Download(dict):
     st.markdown(f"<style>{style}</style>", unsafe_allow_html=True)
     ############################################
     sizes = ['small', 'medium', 'large']
-    down_link_names=['tmdb_50K','tmdb_1L','tmdb_3_3L']
+    down_link_names = ['tmdb_50K', 'tmdb_1L', 'tmdb_3_3L']
     d3={}
     col1, col2 = st.columns([5, 1])
     #     st.sidebar.selectbox('Right Side', ['Small', 'Medium', 'Large'])
