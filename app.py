@@ -28,7 +28,7 @@ style2=''' h1[id="movie-recommendations"] {
     position: relative;
     top: -180px;
     }
-    h1[id="trending-now2"]{
+    h1[id="trending-now"]{
     position: relative;
     left: 210px;
     top:-30px;
