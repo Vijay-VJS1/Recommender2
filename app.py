@@ -7,23 +7,36 @@ st.set_page_config(page_title='👻👻🚗🌫️‍', page_icon='👻',
 from Recommender import *
 from Download import *
 ##################
+header=st.empty()
+header.title('Movie Recommendations')
 page = st.sidebar.selectbox('Select page',['Recommender','Download Data'])
 # st.markdown(os.listdir(os.getcwd()))
-header=st.empty()
 @st.cache
 def load_model(recom_url):
     url='https://drive.google.com/uc?id=' + recom_url.split('/')[-2]
     data = pd.read_feather(url)
     return data
 ######################################
-style2=''' div[viewBox="0 0 24 24"]> {
-    border-color: yellow;
-    background-color:green;
-    color: yellow;
-    height:2px;
-    box-shadow: rgba(255, 75, 75, 0.5) 0px 0px 0px 0.2rem;
-    outline: currentcolor none medium; } '''
-# st.markdown(f"<style>{style2}</style>", unsafe_allow_html=True)
+style2=''' h1[id="movie-recommendations"] {
+    position: relative;
+    top: 100px;} 
+    div[data-testid="column"]{
+    position: relative;
+    top: -180px;
+    }
+    div[class="element-container css-1hynsf2 e1tzin5v3"]{
+    position: relative;
+    top: -180px;
+    }
+    h1[id="trending-now"]{
+    position: relative;
+    left: 250px;
+    top:-30px;
+    }
+    '''
+st.markdown(f"<style>{style2}</style>", unsafe_allow_html=True)
+style3=''''''
+st.markdown(f"<style>{style3}</style>", unsafe_allow_html=True)
 ######################################
 s1 ="""<style>.st-bf {
     border-color:transparent;
@@ -153,5 +166,5 @@ elif page=='Download Data':
     data_to_downloader=[expander,
                         size_style_clicked,
                         size_style_unclicked]
-    Download(data_to_downloader)
+    # Download(data_to_downloader)
     # st.markdown("Download")

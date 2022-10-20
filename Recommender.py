@@ -122,7 +122,7 @@ def Recommender(selected_movie,df,sim):
     st_list=list(string.ascii_lowercase)
     ####Popular
     sub_head=st.empty()
-    sub_head.subheader('Trending Now')
+    sub_head.title('Trending Now')
     pop_names,pop_posters,pop_ratings,pop_ids=popular()
     cols = st.columns(5)
     x=0
