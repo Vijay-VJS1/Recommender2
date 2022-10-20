@@ -144,15 +144,21 @@ def Recommender(selected_movie,df,sim):
             x+=1
     ####Recommender
     x=0
+    col_position="""<style>div[data-testid="column"]{
+    position: relative;
+    top:-200px;
+    }
+    </style>"""
     if search_similar:
+      st.markdown(col_position, unsafe_allow_html=True)
       sub_head.subheader("Similiar Movies")
-      link = "https://www.citypng.com/public/uploads/preview/loading-load-icon-transparent-png-11639609114lctjenyas8.png"
+      link = "https://www.freeiconspng.com/thumbs/load-icon-png/load-icon-png-8.png"
       html = f"<a href='{link}'><img src='{link}' style='width:130px;height:200px;'></a>"
       for row in range(rows):
         for i in range(columns):
           with cols[i]:
              photo_dict[st_list[x]].markdown(html, unsafe_allow_html=True)
-             rating = f'<p style="font-family:Georgia; color:Blue; font-size: 20px;font-weight: bold;">Loading{""}</p>'
+             rating = f'<p style="font-family:Georgia; color:White; font-size: 20px;font-weight: bold;">Loading{""}</p>'
              rating_dict[st_list[x]].markdown(rating, unsafe_allow_html=True)
              x+=1
       x=0
