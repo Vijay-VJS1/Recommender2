@@ -20,18 +20,27 @@ def load_model(recom_url):
 style2=''' h1[id="movie-recommendations"] {
     position: relative;
     top: 100px;} 
-    div[data-testid="column"]{
+    div[class="row-widget stSelectbox"]{
     position: relative;
-    top: -180px;
+    top: 50px;
     }
     div[class="element-container css-1hynsf2 e1tzin5v3"]{
     position: relative;
     top: -180px;
     }
-    h1[id="trending-now"]{
+    h1[id="trending-now2"]{
     position: relative;
-    left: 250px;
+    left: 210px;
     top:-30px;
+    }
+    div[data-testid="column"]{
+    position: relative;
+    top:-220px;
+    }
+    div[data-testid="stExpander"]{
+    position:relative;
+    color:black;
+    top:-30px
     }
     '''
 st.markdown(f"<style>{style2}</style>", unsafe_allow_html=True)
@@ -166,5 +175,5 @@ elif page=='Download Data':
     data_to_downloader=[expander,
                         size_style_clicked,
                         size_style_unclicked]
-    # Download(data_to_downloader)
+    Download(data_to_downloader)
     # st.markdown("Download")

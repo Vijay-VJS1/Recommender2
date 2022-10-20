@@ -138,7 +138,7 @@ def Recommender(selected_movie,df,sim):
             html = f"<a href='{link}'><img src='{pop_posters[x]}' style='width:130px;height:200px;'></a>"
             photo_dict[st_list[x]].markdown(html, unsafe_allow_html=True)
             name = f'<p style="font-family:Courier; color:Black; font-size: 15px;font-weight: bold;">{pop_names[x]}</p>'
-            rating = f'<p style="font-family:Georgia; color:Black; font-size: 15px;font-weight: bold;">Rating: {round(pop_ratings[x],1)}</p>'
+            rating = f'<p style="font-family:Georgia; color:White; font-size: 15px;font-weight: bold;">Rating: {round(pop_ratings[x],1)}</p>'
             # movies_dict[st_list[x]].markdown(name, unsafe_allow_html=True)
             rating_dict[st_list[x]].markdown(rating, unsafe_allow_html=True)
             x+=1
