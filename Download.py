@@ -1,6 +1,5 @@
 import pandas as pd
 import streamlit as st
-import os
 from filter import *
 # full_data_url=st.secrets["S_DOWN_URL"]
 # size='small'
@@ -31,7 +30,7 @@ def Download(dict):
             for x in range(3):
                 d3[sizes[x]] = st.button(sizes[x],key=sizes[x])
                 d3[down_link_names[x]]=st.secrets[down_link_names[x]]
-    size=sizes[0]
+    # size=sizes[0]
 
     down_url=d3[down_link_names[0]]
     x='old'

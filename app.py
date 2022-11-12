@@ -1,5 +1,4 @@
 import streamlit as st
-import os
 #################
 st.set_page_config(page_title='👻👻🚗🌫️‍', page_icon='👻',
                    layout="centered", initial_sidebar_state="collapsed",
@@ -11,11 +10,11 @@ header=st.empty()
 header.title('Movie Recommendations')
 page = st.sidebar.selectbox('Select page',['Recommender','Download Data'])
 # st.markdown(os.listdir(os.getcwd()))
-@st.cache
-def load_model(recom_url):
-    url='https://drive.google.com/uc?id=' + recom_url.split('/')[-2]
-    data = pd.read_feather(url)
-    return data
+# @st.cache
+# def load_model(recom_url):
+#     url='https://drive.google.com/uc?id=' + recom_url.split('/')[-2]
+#     data = pd.read_feather(url)
+#     return data
 ######################################
 style2=''' h1[id="movie-recommendations"] {
     position: relative;
